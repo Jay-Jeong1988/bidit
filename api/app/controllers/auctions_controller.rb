@@ -11,7 +11,7 @@ class AuctionsController < ApplicationController
         if auction.save
             render json: {id: auction.id}
         else
-            head :conflic
+            head :conflict
         end
     end
 
@@ -40,7 +40,7 @@ class AuctionsController < ApplicationController
     end
 
     def find_auction
-        auction = auction.find params[:id]
+        auction = Auction.find params[:id]
     end
 
 
