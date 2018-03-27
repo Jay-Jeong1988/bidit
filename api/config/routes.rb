@@ -4,4 +4,7 @@ Rails.application.routes.draw do
     resources :bids, only: [:create, :destroy]
   end
 
+  resources :tokens, only: [:index, :new, :create]
+    
+
 end
