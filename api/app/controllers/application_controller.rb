@@ -15,12 +15,11 @@ class ApplicationController < ActionController::API
             # To get a value from payload, make sure to use
             # strings to access the keys. The payload's hash's
             # keys are all strings and not symbols.
-            @user ||= User.find_by(id: payload["id"])
+            @user ||= User.find_by_id(payload["id"])
         rescue JWT::DecodeError => error
             nil
         end
     end
-    helper_method :current_user
     
     private
         def authenticate_user!
