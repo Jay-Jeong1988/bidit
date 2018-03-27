@@ -10,10 +10,9 @@ class User < ApplicationRecord
 
     has_secure_password
     
-    private
 
     def full_name
         "#{first_name} #{last_name}".strip
     end
-
+    
 end
