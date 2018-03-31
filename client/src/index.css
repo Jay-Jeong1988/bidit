@@ -1,0 +1,14 @@
+nav {
+    background-color: gold;
+    padding: 1em 0;
+}
+nav > * {
+    margin: 0 2em;
+}
+
+.SigninPage {
+    height: 500px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
