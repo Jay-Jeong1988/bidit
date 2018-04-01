@@ -22,8 +22,8 @@ class SigninPage extends Component {
             
             if(!data.errors){
                 localStorage.setItem('jwt', data.jwt);
-                this.props.history.push('/');
                 this.props.onSignIn();
+                this.props.history.push('/');
             }else{
                 this.props.history.push('/sign_in');
                 this.setState({
