@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import SigninPage from './components/pages/SigninPage';
 import jwtDecode from 'jwt-decode';
 import AuthRoute from './components/AuthRoute';
+import AuctionIndexPage from './components/pages/AuctionIndexPage';
 // import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
           <NavBar user={user} signOut={this.onSignOut}/>
           <Switch>
             <AuthRoute exact path='/' component={RootPage} isAuthenticated={this.isSignedIn()} />
+            <AuthRoute exact path='/auctions' component={AuctionIndexPage} isAuthenticated={this.isSignedIn()} />
             <Route path='/sign_in' 
             render={ props => <SigninPage 
               {...props}

@@ -1,10 +1,10 @@
-const BASE = 'http://localhost:3000/';
+const BASE = 'http://localhost:3000';
 const JWT = localStorage.getItem('jwt');
 
 const Auction = {
 
     all(){
-        return fetch(`${BASE}auctions`, {
+        return fetch(`${BASE}/auctions`, {
             headers: { 'AUTHORIZATION': JWT }
         }).then( res => res.json() )
     }

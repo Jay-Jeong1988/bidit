@@ -12,6 +12,10 @@ class Ability
     
     can :manage, Auction do |auction|
       auction.user == user
+      
+      can :create, Bid do |bid|
+        auction.user != user
+      end
     end
 
     can :manage, Bid do |bid|
