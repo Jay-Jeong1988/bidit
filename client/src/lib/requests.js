@@ -7,6 +7,12 @@ const Auction = {
         return fetch(`${BASE}/auctions`, {
             headers: { 'AUTHORIZATION': JWT }
         }).then( res => res.json() )
+    },
+
+    one(id){
+        return fetch(`${BASE}/auctions/${id}`, {
+            headers: { 'AUTHORIZATION': JWT }
+        }).then( res => res.json() )
     }
 }
 

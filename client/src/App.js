@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router,
-        Switch, Route, Redirect } from 'react-router-dom';
+        Switch, Route } from 'react-router-dom';
 import RootPage from './components/pages/RootPage';
 import NavBar from './components/NavBar';
 import SigninPage from './components/pages/SigninPage';
 import jwtDecode from 'jwt-decode';
 import AuthRoute from './components/AuthRoute';
 import AuctionIndexPage from './components/pages/AuctionIndexPage';
+import AuctionShowPage from './components/pages/AuctionShowPage';
 // import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
@@ -57,6 +58,7 @@ class App extends Component {
           <Switch>
             <AuthRoute exact path='/' component={RootPage} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions' component={AuctionIndexPage} isAuthenticated={this.isSignedIn()} />
+            <AuthRoute exact path='/auctions/:id' component={AuctionShowPage} isAuthenticated={this.isSignedIn()} />
             <Route path='/sign_in' 
             render={ props => <SigninPage 
               {...props}

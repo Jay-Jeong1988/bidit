@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import AuctionDetail from '../AuctionDetail';
+import { Link } from 'react-router-dom';
 import { Auction } from '../../lib/requests';
 
 class AuctionIndexPage extends Component {
@@ -26,10 +26,10 @@ class AuctionIndexPage extends Component {
                 {
                     auctions.map( auction => (
                             <div key={auction.id} style={{textAlign: 'center', padding:'2em'}} className="AuctionContainer">
-                                <h2>{auction.title}</h2>
+                                <Link to={`/auctions/${auction.id}`}> <h2>{auction.title}</h2> </Link>
                                 <p>{auction.description}</p>
                                 <h4>${auction.reserve_price}</h4>
-                                <small>{auction.expiry_date}</small>
+                                <small>expires on: { auction.expiry_date ? auction.expiry_date.split('T')[0] : null }</small>
                             </div>
                     ))        
                 }
