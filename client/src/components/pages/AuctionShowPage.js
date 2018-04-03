@@ -41,8 +41,24 @@ class AuctionShowPage extends Component {
                 })
             }
         })
-        event.currentTarget.children[0].value='';
-                        
+
+        event.currentTarget.children[0].value='';                   
+    }
+
+    clickEffect(event){
+
+        const {currentTarget} = event;
+        currentTarget.style.position = 'relative';
+        currentTarget.style.boxShadow = '0 0';
+        currentTarget.style.left = '2px';
+        currentTarget.style.top = '2px';
+
+        setTimeout( () => {
+            currentTarget.style.boxShadow = '2px 2px';
+            currentTarget.style.left = '0px';
+            currentTarget.style.top = '0px';
+        }, 100)
+
     }
 
     render() {
@@ -58,7 +74,7 @@ class AuctionShowPage extends Component {
                         
                         <form className="bidForm" onSubmit={this.createBid}>
                             <input type="number" name="bid" />
-                            <input type="submit" value="Bid" />
+                            <input onClick={this.clickEffect} type="submit" value="Bid" />
                         </form>
                        
                         <div> <h2>Previous Bids</h2>
