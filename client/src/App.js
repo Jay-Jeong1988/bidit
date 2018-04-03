@@ -8,6 +8,7 @@ import jwtDecode from 'jwt-decode';
 import AuthRoute from './components/AuthRoute';
 import AuctionIndexPage from './components/pages/AuctionIndexPage';
 import AuctionShowPage from './components/pages/AuctionShowPage';
+import AuctionNewPage from './components/pages/AuctionNewPage';
 // import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
@@ -58,6 +59,7 @@ class App extends Component {
           <Switch>
             <AuthRoute exact path='/' component={RootPage} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions' component={AuctionIndexPage} isAuthenticated={this.isSignedIn()} />
+            <AuthRoute exact path='/auctions/new' component={AuctionNewPage} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions/:id' component={AuctionShowPage} isAuthenticated={this.isSignedIn()} />
             <Route path='/sign_in' 
             render={ props => <SigninPage 
