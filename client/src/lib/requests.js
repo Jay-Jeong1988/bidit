@@ -26,12 +26,25 @@ const Auction = {
     }
 }
 
+const Bid = {
+
+    create(auctionId, params) {
+        return fetch(`${BASE}/auctions/${auctionId}/bids`, {
+            method: 'POST',
+            headers: { 'AUTHORIZATION': JWT,
+                        'Content-Type': 'application/json'
+                    },
+            body: JSON.stringify(params)
+        }).then( res => res.json() )
+    }
+}
+
 
 const Token = {
 
     create(params) {
         return (
-            fetch(`${BASE}tokens`, 
+            fetch(`${BASE}/tokens`, 
             { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -42,4 +55,4 @@ const Token = {
     }
 }
 
-export { Auction, Token };
+export { Auction, Token, Bid };

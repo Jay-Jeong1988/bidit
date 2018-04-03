@@ -7,7 +7,7 @@ class BidsController < ApplicationController
         bid.user = current_user
         if bid.auction.user != current_user
             if bid.save
-                render json: bid.auction
+                render json: bid
             else
                 head :conflict
             end

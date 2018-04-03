@@ -11,7 +11,7 @@ function AuthRoute (props) {
         <Route {...restProps} render={ props => isAuthenticated ? 
             <Component {...props} />
             :
-            <Redirect to="sign_in" />
+            <Redirect to="/sign_in" />
         }
         />
     )

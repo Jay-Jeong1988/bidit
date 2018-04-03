@@ -29,6 +29,7 @@ class AuctionIndexPage extends Component {
                                 <Link to={`/auctions/${auction.id}`}> <h2>{auction.title}</h2> </Link>
                                 <p>{auction.description}</p>
                                 <h4>${auction.reserve_price}</h4>
+                                <h3>{ auction.seller ? auction.seller.full_name : ''}</h3>
                                 <small>expires on: { auction.expiry_date ? auction.expiry_date.split('T')[0] : null }</small>
                             </div>
                     ))        

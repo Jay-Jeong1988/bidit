@@ -27,29 +27,30 @@ class AuctionNewPage extends Component {
 
         return (
 
-            <div className="AuctionNewPage">
-                <form style={{ padding: '2em', textAlign: 'center'}} onSubmit={this.create}>
+            <div style={{ padding: '2em' }} className="AuctionNewPage">
+                <h1> Create New Auction</h1>
+                <form onSubmit={this.create}>
 
                     <div>
-                        <label htmlFor="title">What do you sell?</label><br />
-                        <input type="text" name="title" id="title"/>
+                        <label htmlFor="title">Title</label>
+                        <input style={{ marginLeft: '1.4em', width: '24em' }} type="text" name="title" id="title"/>
                     </div>
-                    <div>
-                        <label htmlFor="description">Description</label><br />
+                    <div style={{ display: 'flex' }}>
+                        <label htmlFor="description">Details</label>
                         <textarea cols="60" rows="10" name="description" id="description"/>
                     </div>
                     
                     <div>
-                        <label htmlFor="reserve_price">Initial Price</label><br />
-                        <input type="number" name="reserve_price" id="reserve_price"/>
-                    </div>
-
-                    <div>
-                        <label htmlFor="expiry_date">Expires On</label><br />
+                        <label htmlFor="expiry_date">Ends On</label><br />
                         <input type="date" name="expiry_date" id="expiry_date"/>
                     </div>
 
-                    <input type="submit" value="Put"/>
+                    <div>
+                        <label htmlFor="reserve_price">Reserve Price</label><br />
+                        <input type="number" name="reserve_price" id="reserve_price"/>
+                    </div>
+
+                    <input type="submit" value="Put Online"/>
                 </form>
             </div>
         )
