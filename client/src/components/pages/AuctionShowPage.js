@@ -33,13 +33,9 @@ class AuctionShowPage extends Component {
                 if (!res.errors) {
                     auction.bids.splice(0, 0, res);
                     this.setState({
-                        auction: {
-                            ...auction,
-                            bids: [
-                                ...auction.bids,
-                            ]
-                        }
+                        auction: auction
                     })
+                    window.location.reload();
                 }
             })
         }
@@ -65,6 +61,7 @@ class AuctionShowPage extends Component {
 
     render() {
         const {auction} = this.state;
+        const {currentUser} = this.props;
 
         return (
             <div className="AuctionShowPage">
@@ -83,7 +80,7 @@ class AuctionShowPage extends Component {
                             {   
                                 auction.bids.map( bid => (
                                     <div key={bid.id} className="bidContainer">
-                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] }</small></h3> 
+                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by  </small></h3> 
                                     </div>
                                 ))
                             }

@@ -3,13 +3,13 @@ import { Route, Redirect } from 'react-router-dom';
 
 function AuthRoute (props) {
     
-    const { isAuthenticated, 
-        component: Component,
+    const { isAuthenticated,
+        component: Component, currentUser,
         ...restProps  } = props
-        console.log(isAuthenticated)
+
     return (
         <Route {...restProps} render={ props => isAuthenticated ? 
-            <Component {...props} />
+            <Component {...props} currentUser={currentUser} />
             :
             <Redirect to="/sign_in" />
         }
