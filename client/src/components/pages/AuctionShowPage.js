@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import jwtDecode from 'jwt-decode';
 import { Auction, Bid } from '../../lib/requests';
 
 class AuctionShowPage extends Component {
@@ -28,14 +29,25 @@ class AuctionShowPage extends Component {
         const {auction} = this.state;
         const formData = new FormData(event.currentTarget);
         const bid = formData.get('bid');
+
         if(bid) {
-            Bid.create( auction.id, {price: bid}).then( res => {
+            // Bid.create( auction.id, {price: bid}) 👈 why this wouldn't work? 
+            fetch(`http://localhost:3000/auctions/${auction.id}/bids`, {
+            method: 'POST',
+            headers: { 'AUTHORIZATION': localStorage.getItem('jwt'),
+                        'Content-Type': 'application/json'
+                    },
+            body: JSON.stringify({price: bid})
+        }).then( res => res.json() ).then( res => {
                 if (!res.errors) {
-                    auction.bids.splice(0, 0, res);
-                    this.setState({
-                        auction: auction
+                    Auction.one( auction.id ).then( res => {
+                        this.setState({
+                            auction: {
+                                ...res,
+                                bids: res.bids.reverse()
+                            }
+                        })
                     })
-                    window.location.reload();
                 }
             })
         }
@@ -80,7 +92,7 @@ class AuctionShowPage extends Component {
                             {   
                                 auction.bids.map( bid => (
                                     <div key={bid.id} className="bidContainer">
-                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by  </small></h3> 
+                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by {`${bid.user.first_name} ${bid.user.last_name}`} </small></h3> 
                                     </div>
                                 ))
                             }
