@@ -96,7 +96,7 @@ class AuctionShowPage extends Component {
                         <div>
                             <h4>current price: {`$${auction.bids[0].price}`} </h4>
                             <small> 
-                                { parseInt(auction.bids[0].price) > parseInt(auction.reserve_price) ?
+                                { parseInt(auction.bids[0].price, 10) > parseInt(auction.reserve_price, 10) ?
                                 'reserve price met'
                                 : 
                                 'reserve price not met' 

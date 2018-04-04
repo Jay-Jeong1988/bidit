@@ -55,4 +55,18 @@ const Token = {
     }
 }
 
-export { Auction, Token, Bid };
+const User = {
+
+    create(params) {
+        return (
+            fetch(`${BASE}/users`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params)
+            }
+            ).then( res => res.json())
+        )
+    }
+}
+
+export { Auction, Token, Bid, User };

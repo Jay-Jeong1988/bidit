@@ -9,6 +9,7 @@ import AuthRoute from './components/AuthRoute';
 import AuctionIndexPage from './components/pages/AuctionIndexPage';
 import AuctionShowPage from './components/pages/AuctionShowPage';
 import AuctionNewPage from './components/pages/AuctionNewPage';
+import SignUpPage from './components/pages/SignUpPage';
 // import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
@@ -66,6 +67,12 @@ class App extends Component {
               {...props}
               onSignIn={this.saveUser}
               /> 
+            }/>
+            <Route path='/sign_up'
+            render={ props => <SignUpPage
+              {...props}
+              onSignUp={this.saveUser}
+              />
             }/>
           </Switch>
         </div>
