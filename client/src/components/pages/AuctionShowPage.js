@@ -24,6 +24,7 @@ class AuctionShowPage extends Component {
         })
     }
 
+
     createBid(event){
         event.preventDefault();
         const {auction} = this.state;
@@ -55,6 +56,7 @@ class AuctionShowPage extends Component {
         event.currentTarget.children[0].value='';                   
     }
 
+    
     clickEffect(event){
 
         const {currentTarget} = event;

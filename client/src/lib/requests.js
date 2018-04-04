@@ -26,6 +26,7 @@ const Auction = {
     }
 }
 
+
 const Bid = {
 
     create(auctionId, params) {
@@ -38,6 +39,7 @@ const Bid = {
         }).then( res => res.json() )
     }
 }
+
 
 
 const Token = {

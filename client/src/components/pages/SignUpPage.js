@@ -22,6 +22,7 @@ class SignUpPage extends Component {
             password_confirmation: formData.get('password_confirmation')
         }
 
+
         User.create(newUser).then( res => {
             if(!res.errors){
                 Token.create({ email: res.email, password: newUser.password })
@@ -32,6 +33,7 @@ class SignUpPage extends Component {
                 })              
             }
         })
+        
     }
 
     render() {
