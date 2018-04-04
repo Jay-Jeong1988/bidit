@@ -28,19 +28,21 @@ class AuctionShowPage extends Component {
         const {auction} = this.state;
         const formData = new FormData(event.currentTarget);
         const bid = formData.get('bid');
-        Bid.create( auction.id, {price: bid}).then( res => {
-            if (!res.errors) {
-                auction.bids.splice(0, 0, res);
-                this.setState({
-                    auction: {
-                        ...auction,
-                        bids: [
-                            ...auction.bids,
-                        ]
-                    }
-                })
-            }
-        })
+        if(bid) {
+            Bid.create( auction.id, {price: bid}).then( res => {
+                if (!res.errors) {
+                    auction.bids.splice(0, 0, res);
+                    this.setState({
+                        auction: {
+                            ...auction,
+                            bids: [
+                                ...auction.bids,
+                            ]
+                        }
+                    })
+                }
+            })
+        }
 
         event.currentTarget.children[0].value='';                   
     }
@@ -78,10 +80,10 @@ class AuctionShowPage extends Component {
                         </form>
                        
                         <div> <h2>Previous Bids</h2>
-                            {
+                            {   
                                 auction.bids.map( bid => (
                                     <div key={bid.id} className="bidContainer">
-                                        <h3>${bid.price} at <small>{bid.created_at.split('T')[0]}</small></h3> 
+                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] }</small></h3> 
                                     </div>
                                 ))
                             }
