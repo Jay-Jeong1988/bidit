@@ -36,12 +36,29 @@ class AuctionShowPage extends Component {
             // Bid.create( auction.id, {price: bid}) 👈 why this wouldn't work? (solved)
         Bid.create( auction.id, {price: bid}).then( res => {
                 if (!res.errors) {
-                    this.setState({
-                        auction: {
-                            ...res,
-                            bids: res.bids.reverse()
-                        }
-                    })
+                    if( parseInt(res.price, 10) >= parseInt(auction.reserve_price, 10) ) {
+                        Auction.changeState( auction.id ).then( res => {
+                            if (!res.errors) {
+                                this.setState({
+                                    auction: {
+                                        ...res,
+                                        bids: res.bids.reverse()
+                                    }
+                                })
+                            }
+                        })
+                    }else {
+                        Auction.one(auction.id).then( res => {
+                            if(!res.errors){
+                                this.setState({
+                                    auction: {
+                                        ...res,
+                                        bids: res.bids.reverse()
+                                    }
+                                })
+                            }
+                        })
+                    }
                 }
             })
         }
@@ -51,7 +68,7 @@ class AuctionShowPage extends Component {
     publish(event){
         event.preventDefault();        
         this.clickEffect(event.currentTarget);
-        Auction.publish(this.state.auction.id).then( res => {
+        Auction.changeState(this.state.auction.id).then( res => {
             if (!res.errors) {
                 this.setState({
                     auction: {
@@ -111,7 +128,7 @@ class AuctionShowPage extends Component {
                         <div>
                             <h4>current price: {`$${auction.bids[0].price}`} </h4>
                             <small> 
-                                { parseInt(auction.bids[0].price, 10) > parseInt(auction.reserve_price, 10) ?
+                                { auction.aasm_state === 'reserve_met' ?
                                 'reserve price met'
                                 : 
                                 'reserve price not met' 

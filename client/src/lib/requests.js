@@ -25,7 +25,7 @@ const Auction = {
         }).then( res => res.json() )
     },
 
-    publish(id){
+    changeState(id){
         return fetch(`${BASE}/auctions/${id}/publish`, {
             method: 'POST',
             headers: { 'AUTHORIZATION': localStorage.getItem('jwt') }
