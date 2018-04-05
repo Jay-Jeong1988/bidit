@@ -32,14 +32,9 @@ class AuctionShowPage extends Component {
         const bid = formData.get('bid');
 
         if(bid) {
-            // Bid.create( auction.id, {price: bid}) 👈 why this wouldn't work? 
-            fetch(`http://localhost:3000/auctions/${auction.id}/bids`, {
-            method: 'POST',
-            headers: { 'AUTHORIZATION': localStorage.getItem('jwt'),
-                        'Content-Type': 'application/json'
-                    },
-            body: JSON.stringify({price: bid})
-        }).then( res => res.json() ).then( res => {
+            console.log(localStorage.getItem('jwt'))
+            // Bid.create( auction.id, {price: bid}) 👈 why this wouldn't work? (solved)
+        Bid.create( auction.id, {price: bid}).then( res => {
                 if (!res.errors) {
                     Auction.one( auction.id ).then( res => {
                         this.setState({
@@ -56,7 +51,7 @@ class AuctionShowPage extends Component {
         event.currentTarget.children[0].value='';                   
     }
 
-    
+
     clickEffect(event){
 
         const {currentTarget} = event;
