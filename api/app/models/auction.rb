@@ -20,4 +20,8 @@ class Auction < ApplicationRecord
         end
     end
 
+    # def created_at_to_date
+    #     self.created_at.to_date
+    # end
+
 end
