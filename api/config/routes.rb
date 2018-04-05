@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   resources :tokens, only: [:index, :new, :create]
-    
+  
+  resources :users, only: [:create]
 
 end

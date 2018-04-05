@@ -1,5 +1,36 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    word-wrap: break-word;
+}
+
+nav {
+    background-color: gold;
+    padding: 1em 0;
+}
+nav > * {
+    margin: 0 2em;
+}
+
+.SigninPage {
+    height: 500px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AuctionNewPage > form > * {
+    margin: 1em 0;
+}
+
+.AuctionDetailRight > * { 
+    margin-bottom: 3em;
+}
+
+.bidForm {
+    margin-left: 30%;
+}
+
+.bidForm > * {
+    margin: 1em;
+    border: solid black 2px;
+    box-shadow: 3px 3px;
 }
