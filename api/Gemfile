@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'jwt'
 gem 'active_model_serializers'
 gem 'cancancan'
+gem 'aasm'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
