@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import jwtDecode from 'jwt-decode';
 import { Auction, Bid } from '../../lib/requests';
 
 class AuctionShowPage extends Component {
@@ -32,7 +31,6 @@ class AuctionShowPage extends Component {
         const bid = formData.get('bid');
 
         if(bid) {
-            console.log(localStorage.getItem('jwt'))
             // Bid.create( auction.id, {price: bid}) 👈 why this wouldn't work? (solved)
         Bid.create( auction.id, {price: bid}).then( res => {
                 if (!res.errors) {
@@ -70,7 +68,6 @@ class AuctionShowPage extends Component {
 
     render() {
         const {auction} = this.state;
-        const {currentUser} = this.props;
 
         return (
             <div className="AuctionShowPage">

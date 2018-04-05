@@ -61,7 +61,7 @@ class App extends Component {
             <AuthRoute exact path='/' component={RootPage} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions' component={AuctionIndexPage} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions/new' component={AuctionNewPage} isAuthenticated={this.isSignedIn()} />
-            <AuthRoute exact path='/auctions/:id' currentUser={this.state.user} component={AuctionShowPage} isAuthenticated={this.isSignedIn()} />
+            <AuthRoute exact path='/auctions/:id' component={AuctionShowPage} isAuthenticated={this.isSignedIn()} />
             <Route path='/sign_in' 
             render={ props => <SigninPage 
               {...props}
