@@ -2,19 +2,21 @@ require 'rails_helper'
 
 RSpec.describe AuctionsController, type: :controller do
 
+    def user
+        @user ||= User.new({ first_name: 'jaja', 
+                    last_name: 'hahah', 
+                    email: 'alal@alal.com', 
+                    password: 'akakak'
+                    })
+    end
+
     describe '#index' do
         it 'send a json array containing all auctions' do
-            userA = User.new first_name: 'jaja',
-                last_name: 'hahah', 
-                email: 'alal@alal.com', 
-                password: 'akakak'
-            
-            userA.save
-
+            user.save
             Auction.create title: 'testing auctions!',
             description: 'testing auctions again and again',
             reserve_price: 1389,
-            user: userA
+            user: user
 
             get :index
             json = JSON.parse(response.body)
@@ -27,16 +29,12 @@ RSpec.describe AuctionsController, type: :controller do
 
         context 'when an user is signed in && a valid post is requested' do
             before do
-                userA = User.create first_name: 'jaja',
-                last_name: 'hahah', 
-                email: 'alal@alal.com', 
-                password: 'akakak'
-                userA.save
-                jwt = JWT.encode( { id: userA.id,
-                    first_name: userA.first_name,
-                    last_name: userA.last_name,
-                    full_name: userA.full_name,
-                    email: userA.email
+                user.save
+                jwt = JWT.encode( { id: user.id,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    full_name: user.full_name,
+                    email: user.email
                     }, Rails.application.secrets.secret_key_base )
                     
                     headers = { 'AUTHORIZATION': jwt,
