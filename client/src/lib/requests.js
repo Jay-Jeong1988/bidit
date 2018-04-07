@@ -23,6 +23,13 @@ const Auction = {
                      },
             body: JSON.stringify(params)
         }).then( res => res.json() )
+    },
+
+    changeState(id){
+        return fetch(`${BASE}/auctions/${id}/publish`, {
+            method: 'POST',
+            headers: { 'AUTHORIZATION': localStorage.getItem('jwt') }
+        }).then( res => res.json() )
     }
 }
 

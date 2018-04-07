@@ -9,6 +9,7 @@ class AuctionShowPage extends Component {
             auction: null
         }
         this.createBid = this.createBid.bind(this);
+        this.publish = this.publish.bind(this);
     }
 
     componentDidMount(){
@@ -29,39 +30,67 @@ class AuctionShowPage extends Component {
         const {auction} = this.state;
         const formData = new FormData(event.currentTarget);
         const bid = formData.get('bid');
+        this.clickEffect(event.currentTarget.children[1]);
 
         if(bid) {
             // Bid.create( auction.id, {price: bid}) 👈 why this wouldn't work? (solved)
         Bid.create( auction.id, {price: bid}).then( res => {
                 if (!res.errors) {
-                    Auction.one( auction.id ).then( res => {
-                        this.setState({
-                            auction: {
-                                ...res,
-                                bids: res.bids.reverse()
+                    if( parseInt(res.price, 10) >= parseInt(auction.reserve_price, 10) ) {
+                        Auction.changeState( auction.id ).then( res => {
+                            if (!res.errors) {
+                                this.setState({
+                                    auction: {
+                                        ...res,
+                                        bids: res.bids.reverse()
+                                    }
+                                })
                             }
                         })
-                    })
+                    }else {
+                        Auction.one(auction.id).then( res => {
+                            if(!res.errors){
+                                this.setState({
+                                    auction: {
+                                        ...res,
+                                        bids: res.bids.reverse()
+                                    }
+                                })
+                            }
+                        })
+                    }
                 }
             })
         }
-
         event.currentTarget.children[0].value='';                   
     }
 
+    publish(event){
+        event.preventDefault();        
+        this.clickEffect(event.currentTarget);
+        Auction.changeState(this.state.auction.id).then( res => {
+            if (!res.errors) {
+                this.setState({
+                    auction: {
+                        ...res,
+                        bids: res.bids.reverse()
+                    }
+                })  
+            }
+        })
+    }
 
-    clickEffect(event){
+    clickEffect(target){
 
-        const {currentTarget} = event;
-        currentTarget.style.position = 'relative';
-        currentTarget.style.boxShadow = '0 0';
-        currentTarget.style.left = '2px';
-        currentTarget.style.top = '2px';
+        target.style.position = 'relative';
+        target.style.boxShadow = '0 0';
+        target.style.left = '2px';
+        target.style.top = '2px';
 
         setTimeout( () => {
-            currentTarget.style.boxShadow = '2px 2px';
-            currentTarget.style.left = '0px';
-            currentTarget.style.top = '0px';
+            target.style.boxShadow = '2px 2px';
+            target.style.left = '0px';
+            target.style.top = '0px';
         }, 100)
 
     }
@@ -79,16 +108,21 @@ class AuctionShowPage extends Component {
                         
                         <form className="bidForm" onSubmit={this.createBid}>
                             <input type="number" name="bid" />
-                            <input onClick={this.clickEffect} type="submit" value="Bid" />
+                            <input type="submit" value="Bid" />
                         </form>
                        
                         <div> <h2>Previous Bids</h2>
                             {   
-                                auction.bids.map( bid => (
-                                    <div key={bid.id} className="bidContainer">
-                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by {`${bid.user.first_name} ${bid.user.last_name}`} </small></h3> 
-                                    </div>
-                                ))
+                                auction.bids.map( bid => {
+                                    if(bid.user === null){
+                                        bid.user = {first_name: 'someone', last_name:''}
+                                    }
+                                    return (
+                                        <div key={bid.id} className="bidContainer">
+                                            <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by {`${bid.user.first_name} ${bid.user.last_name}`} </small></h3> 
+                                        </div>
+                                        )
+                                })
                             }
                         </div>
                     </div>
@@ -99,7 +133,7 @@ class AuctionShowPage extends Component {
                         <div>
                             <h4>current price: {`$${auction.bids[0].price}`} </h4>
                             <small> 
-                                { parseInt(auction.bids[0].price, 10) > parseInt(auction.reserve_price, 10) ?
+                                { auction.aasm_state === 'reserve_met' ?
                                 'reserve price met'
                                 : 
                                 'reserve price not met' 
@@ -112,7 +146,13 @@ class AuctionShowPage extends Component {
                         }
                          
                         { auction.expiry_date ? <h4>expires on: {auction.expiry_date.split('T')[0]} </h4> : '' } 
-
+                        
+                        {
+                            auction.aasm_state === 'draft' ?
+                            <button className="publish" onClick={this.publish}>Publish</button>
+                            :
+                            ''
+                        }
                     </div>    
                 </div>
                 :

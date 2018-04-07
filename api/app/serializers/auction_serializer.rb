@@ -1,13 +1,14 @@
 class AuctionSerializer < ActiveModel::Serializer
   
   # TODO: find way to exclude attributes instead of including
-  attributes :id, :title, :description,:reserve_price, :expiry_date, :created_at, :updated_at
+  attributes :id, :title, :description,:reserve_price,
+   :expiry_date, :created_at, :updated_at, :aasm_state
 
   belongs_to :user, key: :seller
   class UserSerializer < ActiveModel::Serializer
     attributes(
       :id, :first_name, :last_name,
-      :full_name, :created_at, :updated_at
+      :full_name, :created_at, :updated_at, :email
       )
   end
     

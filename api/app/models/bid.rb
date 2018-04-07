@@ -12,7 +12,7 @@ class Bid < ApplicationRecord
         auction = self.auction
         current_bid = auction.bids.last
         if current_bid.present?
-            if self.price < current_bid.price
+            if self.price <= current_bid.price
                 errors.add :price, "cannot be less than current price"
             end
         end

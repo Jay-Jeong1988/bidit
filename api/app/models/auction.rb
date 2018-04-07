@@ -1,4 +1,21 @@
 class Auction < ApplicationRecord
+    include AASM
+
+    aasm whiny_transitions: false do 
+        state :draft, initial: true
+        state :published
+        state :reserve_met
+
+        event :publish do
+            transitions from: :draft, to: :published
+        end
+
+        event :reserve do
+            transitions from: :published, to: :reserve_met
+        end
+        
+    end
+
     has_many :bids, dependent: :destroy
     belongs_to :user
 
