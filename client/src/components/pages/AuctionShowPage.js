@@ -113,11 +113,16 @@ class AuctionShowPage extends Component {
                        
                         <div> <h2>Previous Bids</h2>
                             {   
-                                auction.bids.map( bid => (
-                                    <div key={bid.id} className="bidContainer">
-                                        <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by {`${bid.user.first_name} ${bid.user.last_name}`} </small></h3> 
-                                    </div>
-                                ))
+                                auction.bids.map( bid => {
+                                    if(bid.user === null){
+                                        bid.user = {first_name: 'someone', last_name:''}
+                                    }
+                                    return (
+                                        <div key={bid.id} className="bidContainer">
+                                            <h3>${bid.price} at <small>{ bid.created_at.split('T')[0] } by {`${bid.user.first_name} ${bid.user.last_name}`} </small></h3> 
+                                        </div>
+                                        )
+                                })
                             }
                         </div>
                     </div>

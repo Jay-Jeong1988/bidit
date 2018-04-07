@@ -26,8 +26,10 @@ class AuctionIndexPage extends Component {
             <div className="AuctionIndexPage">
                 {
                     auctions.map( auction => {
-                        const { aasm_state: state } = auction   
-       
+                        const { aasm_state: state } = auction 
+                        if (auction.seller === null){
+                            auction.seller = {}
+                        }  
                         return (state === 'published' || state === 'reserve_met') ?
                             (
                             <div key={auction.id} style={{textAlign: 'center', padding:'2em'}} className="AuctionContainer">

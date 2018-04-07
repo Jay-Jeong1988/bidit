@@ -13,8 +13,6 @@ RSpec.describe TokensController, type: :controller do
         context 'When an user send a http_POST_request (sign in)' do
             before do
                 user.save
-                headers = { 'Contennt-Type': 'application/json' }
-                request.headers.merge! headers
             end
             
             context 'with valid authentication' do
