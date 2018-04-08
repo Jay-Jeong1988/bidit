@@ -1,6 +1,6 @@
 class AuctionsController < ApplicationController
     before_action :find_auction, only: [:update, :show, :destroy]
-    before_action :authenticate_user!, except: [:index]
+    before_action :authenticate_user!
 
     def index
         auctions = Auction.order created_at: :desc

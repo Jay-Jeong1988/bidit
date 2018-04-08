@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::API
     # skip_before_action :verify_authenticity_token
 
+    def not_found
+        errors = { errors: [{ type: 'Not Found'}] }
+        render json: errors, status: :not_found
+    end
+
     def current_user
         token = request.headers["AUTHORIZATION"]
     

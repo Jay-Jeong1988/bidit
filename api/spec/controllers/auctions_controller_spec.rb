@@ -54,6 +54,7 @@ RSpec.describe AuctionsController, type: :controller do
                 before_count = Auction.count
                 valid_request
                 after_count = Auction.count                
+                # expect(response.status).to eq(201) ?
                 expect(after_count).to eq(before_count + 1)                    
             end
         end
