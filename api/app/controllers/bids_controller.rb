@@ -5,14 +5,10 @@ class BidsController < ApplicationController
         bid = Bid.new bid_params
         bid.auction = Auction.find params[:auction_id]
         bid.user = current_user
-        if bid.auction.user != current_user
-            if bid.save
-                render json: bid
-            else
-                head :conflict
-            end
+        if bid.auction.user != current_user && !bid.auction.draft?
+            render json: bid if bid.save!
         else
-            head :unauthorized
+            unauthorized_user
         end
     end
 
@@ -21,7 +17,7 @@ class BidsController < ApplicationController
         if bid.user == current_user 
             bid.destroy
         else
-            head :unauthorized
+            unauthorized_user
         end
     end
 
