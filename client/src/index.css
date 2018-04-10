@@ -16,6 +16,11 @@ nav > * {
     justify-content: center;
     align-items: center;
 }
+.flexContainer > form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 
 .errorContainer {
     height: 100px;
@@ -23,6 +28,11 @@ nav > * {
 }
 .errorContainer > h4 {
     margin-top: 0
+}
+.errors {
+    position: absolute;
+    left: 200px;
+    top: 350px;
 }
 
 .AuctionNewPage > form > * {

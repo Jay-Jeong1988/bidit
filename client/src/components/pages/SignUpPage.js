@@ -7,7 +7,9 @@ class SignUpPage extends Component {
         super(props);
 
         this.createUser = this.createUser.bind(this);
-        
+        this.state = {
+            errors: []
+        }
     }
 
     createUser(event){
@@ -31,44 +33,55 @@ class SignUpPage extends Component {
                     this.props.onSignUp()
                     this.props.history.push('/')
                 })              
+            }else {
+                this.setState({
+                    errors: res.errors
+                })
             }
         })
         
     }
 
     render() {
-
+        const {errors} = this.state
         return (
 
-            <div className="SignUpPage">
-                <form onSubmit={this.createUser}>
-                    <div>
-                        <label htmlFor="first_name">First Name</label>
-                        <input id="first_name" name="first_name" />
-                    </div>
+            <div style={{textAlign:'center'}} className="SignUpPage">
+                <div className='errorContainer'>
+                    { 
+                        errors.map( (e, i) => <h4 key={i}>{e.field} {e.message}</h4> )
+                    }
+                </div>
+                <div className="flexContainer">
+                    <form onSubmit={this.createUser}>
+                        <div>
+                            <label htmlFor="first_name">First Name</label>
+                            <input id="first_name" name="first_name" />
+                        </div>
 
-                    <div>
-                        <label htmlFor="last_name">Last Name</label>
-                        <input id="last_name" name="last_name"/>
-                    </div>
+                        <div>
+                            <label htmlFor="last_name">Last Name</label>
+                            <input id="last_name" name="last_name"/>
+                        </div>
 
-                    <div>
-                        <label htmlFor='email'>Email</label>
-                        <input type='email' name="email" id="email"/>
-                    </div>
+                        <div>
+                            <label htmlFor='email'>Email</label>
+                            <input type='email' name="email" id="email"/>
+                        </div>
 
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <input type='password' id='password' name='password'/>
-                    </div>
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <input type='password' id='password' name='password'/>
+                        </div>
 
-                    <div>
-                        <label htmlFor="password_confirmation">Password Confirmation</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation"/>
-                    </div>
+                        <div>
+                            <label htmlFor="password_confirmation">Password Confirmation</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation"/>
+                        </div>
 
-                    <input type='submit' value="Sign Up"/>
-                </form>
+                        <input type='submit' value="Sign Up"/>
+                    </form>
+                </div>
             </div>
 
         )

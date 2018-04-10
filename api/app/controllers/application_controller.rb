@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
     rescue_from StandardError, with: :standard_error
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_record
+    rescue_from ActiveRecord::RangeError, with: :invalid_range
 
     def not_found
         errors = { errors: [{ type: 'Not Found'}] }
@@ -96,6 +97,18 @@ class ApplicationController < ActionController::API
                  status: :unprocessable_entity
                  )
               
+        end
+
+        def invalid_range(error)
+                logger.error "#{error.message} \n"
+            errors = [{ 
+                    type: error.class.to_s,
+                    message: "A field with precision 10, scale 2 must round to an absolute value less than 10^8."
+                }]
+            render(
+                json: { errors: errors},
+                 status: :unprocessable_entity
+                 )      
         end
 
         # def syntax_error(error)

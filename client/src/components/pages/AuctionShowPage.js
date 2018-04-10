@@ -6,7 +6,8 @@ class AuctionShowPage extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            auction: null
+            auction: null,
+            errors: []
         }
         this.createBid = this.createBid.bind(this);
         this.publish = this.publish.bind(this);
@@ -15,12 +16,18 @@ class AuctionShowPage extends Component {
     componentDidMount(){
         const id = this.props.match.params.id;
         Auction.one(id).then( data => {
-            this.setState({
-                auction: {
-                    ...data,
-                    bids: data.bids.reverse()
-                }
-            })
+            if(!data.errors){
+                this.setState({
+                    auction: {
+                        ...data,
+                        bids: data.bids.reverse()
+                    }
+                })
+            }else{
+                this.setState({
+                    errors: data.errors
+                })
+            }
         })
     }
 
@@ -39,11 +46,13 @@ class AuctionShowPage extends Component {
                     if( parseInt(res.price, 10) >= parseInt(auction.reserve_price, 10) ) {
                         Auction.changeState( auction.id ).then( res => {
                             if (!res.errors) {
+                                // console.log(res.bids)
                                 this.setState({
                                     auction: {
                                         ...res,
                                         bids: res.bids.reverse()
-                                    }
+                                    },
+                                    errors:[]
                                 })
                             }
                         })
@@ -54,11 +63,20 @@ class AuctionShowPage extends Component {
                                     auction: {
                                         ...res,
                                         bids: res.bids.reverse()
-                                    }
+                                    },
+                                    errors:[]
+                                })
+                            }else{
+                                this.setState({
+                                    errors: res.errors
                                 })
                             }
                         })
                     }
+                }else {
+                    this.setState({
+                        errors: res.errors
+                    })
                 }
             })
         }
@@ -97,7 +115,7 @@ class AuctionShowPage extends Component {
 
     render() {
         const {auction} = this.state;
-
+        const {errors} = this.state;
         return (
             <div className="AuctionShowPage">
             { auction ? 
@@ -110,6 +128,18 @@ class AuctionShowPage extends Component {
                             <input type="number" name="bid" />
                             <input type="submit" value="Bid" />
                         </form>
+                        <span>
+                            {
+                                errors.map( (e,i) => (
+                                <small key={i}>{ e.type === 'unauthorized'
+                                                ? e.message
+                                                : `${e.field} ${e.message}`
+                                                }
+                                </small>
+                                    )
+                                )
+                            }
+                        </span>
                        
                         <div> <h2>Previous Bids</h2>
                             {   
