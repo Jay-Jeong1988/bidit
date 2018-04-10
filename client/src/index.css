@@ -10,11 +10,19 @@ nav > * {
     margin: 0 2em;
 }
 
-.SigninPage {
-    height: 500px;
+.flexContainer {
+    height: 300px;
     display:flex;
     justify-content: center;
     align-items: center;
+}
+
+.errorContainer {
+    height: 100px;
+    margin-top: 30px;
+}
+.errorContainer > h4 {
+    margin-top: 0
 }
 
 .AuctionNewPage > form > * {
