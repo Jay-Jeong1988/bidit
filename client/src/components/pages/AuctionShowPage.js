@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Auction, Bid } from '../../lib/requests';
+import NotFoundPage from './NotFoundPage';
 
 class AuctionShowPage extends Component {
 
@@ -187,7 +188,7 @@ class AuctionShowPage extends Component {
                 </div>
                 :
 
-                ''
+                <NotFoundPage />
             }
             </div>
         )
