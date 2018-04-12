@@ -19,3 +19,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/Users/jayjeong/codecore/quiz_final/api/config/initializers/app_keys.rb
