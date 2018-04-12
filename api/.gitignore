@@ -15,4 +15,4 @@
 
 .byebug_history
 
-/Users/jayjeong/codecore/quiz_final/api/config/initializers/app_keys.rb
+config/initializers/app_keys.rb
