@@ -7,7 +7,7 @@ class BidsController < ApplicationController
         bid.user = current_user
         if bid.auction.user != current_user && !bid.auction.draft?
             if bid.save!
-                BidMailer.notify_auction_owner(bid).deliver_now
+                BidMailer.notify_auction_owner(bid).deliver_later(wait: 01.seconds)
                 render json: bid 
             end
         else
