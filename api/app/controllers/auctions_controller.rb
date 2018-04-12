@@ -3,7 +3,7 @@ class AuctionsController < ApplicationController
     before_action :authenticate_user!
 
     ClosedAuctionJob.set(wait_until: Date.tomorrow.midnight).perform_later
-
+    
     def index
         auctions = Auction.order created_at: :desc
         render json: auctions

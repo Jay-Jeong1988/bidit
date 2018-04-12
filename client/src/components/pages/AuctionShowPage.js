@@ -47,11 +47,10 @@ class AuctionShowPage extends Component {
                     if( parseInt(res.price, 10) >= parseInt(auction.reserve_price, 10) ) {
                         Auction.changeState( auction.id ).then( res => {
                             if (!res.errors) {
-                                // console.log(res.bids)
                                 this.setState({
                                     auction: {
-                                        ...res,
-                                        bids: res.bids.reverse()
+                                        ...res.auction,
+                                        bids: res.bids
                                     },
                                     errors:[]
                                 })
