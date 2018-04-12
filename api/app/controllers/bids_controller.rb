@@ -6,7 +6,10 @@ class BidsController < ApplicationController
         bid.auction = Auction.find params[:auction_id]
         bid.user = current_user
         if bid.auction.user != current_user && !bid.auction.draft?
-            render json: bid if bid.save!
+            if bid.save!
+                BidMailer.notify_auction_owner(bid).deliver_now
+                render json: bid 
+            end
         else
             unauthorized_user
         end

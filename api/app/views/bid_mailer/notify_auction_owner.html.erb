@@ -1,0 +1,9 @@
+<h1>Hi, <%=@auction_owner.full_name%>.</h1>
+<h1>You have a new bid on your auction ! </h1>
+
+<h2> Bid : <%=@bid.price%> </h2>
+
+<h3>Link to your auction 👇<h3>
+<p><%= link_to @auction.title, "http://localhost:3010/auctions/#{@auction.id}" %></p>
+
+<h4> Thank you for using Auctions </h4>

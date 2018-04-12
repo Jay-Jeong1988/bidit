@@ -26,6 +26,8 @@ gem 'active_model_serializers'
 gem 'cancancan'
 gem 'aasm'
 gem 'rspec-rails'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -46,6 +48,7 @@ group :development do
   gem 'hirb'
   gem 'awesome_print'
   gem 'faker'
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
