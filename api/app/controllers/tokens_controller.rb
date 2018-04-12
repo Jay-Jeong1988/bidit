@@ -17,7 +17,7 @@ class TokensController < ApplicationController
                 })
             }
         else
-            head :not_found
+            not_found
         end
     end
     

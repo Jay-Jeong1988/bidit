@@ -6,6 +6,9 @@ class AuctionNewPage extends Component {
     constructor(props) {
         super(props);
         this.create = this.create.bind(this);
+        this.state = {
+            errors: []
+        }
     }
 
     create(event){
@@ -19,15 +22,24 @@ class AuctionNewPage extends Component {
         Auction.create(params).then( (data) => { 
             if(!data.errors){
                 this.props.history.push('/auctions') 
+            }else{
+                this.setState({
+                    errors: data.errors
+                })
             }
         })
     }
     
     render() {
-
+        const {errors} = this.state;
         return (
 
             <div style={{ padding: '2em' }} className="AuctionNewPage">
+                <div className="errors">
+                {
+                    errors.map( (e,i) => <h4 key={i}>{e.field} {e.message}</h4>)
+                }
+                </div>
                 <h1> Create New Auction</h1>
                 <form onSubmit={this.create}>
 

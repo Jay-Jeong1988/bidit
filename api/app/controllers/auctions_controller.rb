@@ -1,6 +1,6 @@
 class AuctionsController < ApplicationController
     before_action :find_auction, only: [:update, :show, :destroy]
-    before_action :authenticate_user!, except: [:index]
+    before_action :authenticate_user!
 
     def index
         auctions = Auction.order created_at: :desc
@@ -10,22 +10,14 @@ class AuctionsController < ApplicationController
     def create
         auction = Auction.new auction_params
         auction.user = current_user
-        if auction.save
-            render json: {id: auction.id}
-        else
-            head :conflict
-        end
+        render json: {id: auction.id} if auction.save!
     end
 
     def update
         if @auction.user == current_user
-            if @auction.update auction_params
-                render json: {id: @auction.id}
-            else
-                head :conflict
-            end
+            render json: {id: @auction.id} if @auction.update auction_params
         else
-            head :unauthorized
+            unauthorized_user
         end
     end
 
@@ -37,7 +29,7 @@ class AuctionsController < ApplicationController
         if @auction.user == current_user
             @auction.destroy
         else
-            head :unauthorized
+            unauthorized_user
         end
     end
     

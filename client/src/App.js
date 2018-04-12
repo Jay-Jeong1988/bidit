@@ -10,6 +10,7 @@ import AuctionIndexPage from './components/pages/AuctionIndexPage';
 import AuctionShowPage from './components/pages/AuctionShowPage';
 import AuctionNewPage from './components/pages/AuctionNewPage';
 import SignUpPage from './components/pages/SignUpPage';
+import NotFoundPage from './components/pages/NotFoundPage';
 // import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
@@ -74,6 +75,7 @@ class App extends Component {
               onSignUp={this.saveUser}
               />
             }/>
+            <Route component={NotFoundPage} />
           </Switch>
         </div>
       </Router>
