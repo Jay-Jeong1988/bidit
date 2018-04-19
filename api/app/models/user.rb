@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
     has_secure_password
     
+    geocoded_by :address
+    after_validation :geocode
 
     def full_name
         "#{first_name} #{last_name}".strip

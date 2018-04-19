@@ -11,6 +11,7 @@ import AuctionShowPage from './components/pages/AuctionShowPage';
 import AuctionNewPage from './components/pages/AuctionNewPage';
 import SignUpPage from './components/pages/SignUpPage';
 import NotFoundPage from './components/pages/NotFoundPage';
+import UserShowPage from './components/pages/UserShowPage';
 // import AuthRoute from './components/AuthRoute';
 
 class App extends Component {
@@ -63,6 +64,7 @@ class App extends Component {
             <AuthRoute exact path='/auctions' component={AuctionIndexPage} user={user} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions/new' component={AuctionNewPage} isAuthenticated={this.isSignedIn()} />
             <AuthRoute exact path='/auctions/:id' component={AuctionShowPage} isAuthenticated={this.isSignedIn()} />
+            <AuthRoute exact path='/users/:id' component={UserShowPage} isAuthenticated={this.isSignedIn()} user={user}/>
             <Route path='/sign_in' 
             render={ props => <SigninPage 
               {...props}

@@ -21,7 +21,8 @@ class SignUpPage extends Component {
             last_name: formData.get('last_name'),
             email: formData.get('email'),
             password: formData.get('password'),
-            password_confirmation: formData.get('password_confirmation')
+            password_confirmation: formData.get('password_confirmation'),
+            address: formData.get('address')
         }
 
 
@@ -77,6 +78,11 @@ class SignUpPage extends Component {
                         <div>
                             <label htmlFor="password_confirmation">Password Confirmation</label>
                             <input type="password" id="password_confirmation" name="password_confirmation"/>
+                        </div>
+
+                        <div>
+                            <label htmlFor="address">Address</label>
+                            <input type="address" id="address" name="address"/>
                         </div>
 
                         <input type='submit' value="Sign Up"/>

@@ -13,7 +13,10 @@ class TokensController < ApplicationController
                     first_name: user.first_name,
                     last_name: user.last_name,
                     full_name: user.full_name,
-                    email: user.email
+                    email: user.email,
+                    address: user.address,
+                    longitude: user.longitude,
+                    latitude: user.latitude
                 })
             }
         else

@@ -1,6 +1,6 @@
 class AuctionsController < ApplicationController
     before_action :find_auction, only: [:update, :show, :destroy]
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: :index
 
     ClosedAuctionJob.set(wait_until: Date.tomorrow.midnight).perform_later
     

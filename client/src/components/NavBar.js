@@ -13,7 +13,8 @@ function NavBar (props) {
                     <NavLink key={1} exact to="/">Home</NavLink>,
                     <NavLink key={2} exact to='/auctions'>Auctions</NavLink>,
                     <NavLink key={3} exact to="/auctions/new">New Auction</NavLink>,
-                    <NavLink key={4} exact to="/" onClick={signOut}>Sign Out</NavLink>
+                    <NavLink key={4} exact to="/" onClick={signOut}>Sign Out</NavLink>,
+                    <NavLink key={5} exact to={`/users/${user.id}`}>Profile</NavLink> 
                 ]
                 ) : (
                 [
