@@ -24,7 +24,7 @@ class UserShowPage extends Component {
                 }
                 {
                     user.longitude
-                    ? <div style={{width: '800px', height: '400px'}}>
+                    ? <div style={{width: '800px', height: '400px', borderRadius:'800px'}}>
                         <MapContainer lng={user.longitude} lat={user.latitude}/>
                     </div>
                     : ''
