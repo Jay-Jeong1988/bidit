@@ -15,12 +15,22 @@ class PublishersController < ApplicationController
             end
         elsif auction.aasm_state == 'published'
             if auction.reserve && auction.save
-                render json: auction
+                bids = auction.bids.order(created_at: :desc).map do |bid|
+                    att = bid.attributes
+                    att['user'] = bid.user&.attributes
+                    att
+                end
+                render json: { auction: auction, bids: bids }
             else
                 head :conflict
             end
         else
-            render json: auction
+            bids = auction.bids.order(created_at: :desc).map do |bid|
+                att = bid.attributes
+                att['user'] = bid.user&.attributes
+                att
+            end
+            render json: { auction: auction, bids: bids }
         end
     end
 

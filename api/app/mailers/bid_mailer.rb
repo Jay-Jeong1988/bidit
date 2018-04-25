@@ -6,7 +6,7 @@ class BidMailer < ApplicationMailer
         @auction_owner = @auction.user
 
         mail(
-            to: @auction_owner.email,
+            to: 'lastDayIn2017@gmail.com',
             subject: 'You have new bid !'
         )
     end

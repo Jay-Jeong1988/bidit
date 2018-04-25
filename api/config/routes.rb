@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
     resources :tokens, only: [:index, :new, :create]
     
-    resources :users, only: [:create]
+    resources :users, only: [:create, :show]
   
     match '*unmatched_route', to: 'application#not_found', via: :all
 
