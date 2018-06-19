@@ -6,7 +6,7 @@ class Map extends Component {
     render(){
         return (
             <div className="Map">
-                <GoogleMapxq
+                <GoogleMap
                     defaultZoom={16}
                     defaultCenter={{ lat: this.props.lat, lng: this.props.lng }}
                 >
